@@ -12,6 +12,8 @@ Source2:	%{name}.cfg
 Patch0:		%{name}-kodos.patch
 URL:		http://denyhosts.sourceforge.net/
 BuildRequires:	python
+BuildRequires:	python-devel
+Requires:	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
