@@ -6,7 +6,7 @@ Version:	0.5.5
 Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/DenyHosts/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
 # Source0-md5:	e5b49f8e949d3afd3bbd9d4611267dae
 Source1:	%{name}.cron
 Source2:	%{name}.cfg
