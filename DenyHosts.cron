@@ -1,0 +1,1 @@
+*/10 * * * * root python /usr/bin/denyhosts.py -c /etc/DenyHosts.cfg

@@ -1,0 +1,23 @@
+diff -uNr DenyHosts-0.5.5-org/setup.py DenyHosts-0.5.5/setup.py
+--- DenyHosts-0.5.5-org/setup.py	2005-02-13 04:26:49.000000000 +0100
++++ DenyHosts-0.5.5/setup.py	2005-02-22 12:44:10.155446912 +0100
+@@ -6,11 +6,6 @@
+ import sys
+ from glob import glob
+ 
+-
+-libpath = "/usr/share/kodos"
+-
+-
+-
+ #########################################################################
+ 
+ setup(name="DenyHosts",
+@@ -23,7 +18,6 @@
+       ##package_dir={'': 'modules'},
+       ##packages=['modules', "."],
+       license="GPL",
+-      extra_path='kodos',
+       long_description="""
+ DenyHosts is a python program that automatically blocks ssh attacks by adding entries to 
+ /etc/hosts.deny. DenyHosts will also inform Linux administrators about offending hosts, attacked 
