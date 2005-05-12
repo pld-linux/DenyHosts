@@ -2,7 +2,7 @@ Summary:	Script to help thwart SSH server attacks
 Summary(pl):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
 Version:	0.5.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
@@ -50,6 +50,8 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.d}
 python setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
+
+sed -i 's@CONFIG_FILE = \"denyhosts.cfg\"@CONFIG_FILE = \"/etc/DenyHosts.cfg\"@' $RPM_BUILD_ROOT%{_bindir}/denyhosts.py
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}
