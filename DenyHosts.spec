@@ -1,15 +1,15 @@
 Summary:	Script to help thwart SSH server attacks
 Summary(pl):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
-Version:	0.6.0
+Version:	0.9.8
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
-# Source0-md5:	6d65457ed9c31c548160e2aa74e5a80e
+# Source0-md5:	337128544fadfc428746de5ad28bec19
 Source1:	%{name}.cron
 Source2:	%{name}.cfg
-Patch0:		%{name}-kodos.patch
+Source3:	%{name}.init
 URL:		http://denyhosts.sourceforge.net/
 BuildRequires:	python
 BuildRequires:	python-devel
@@ -37,7 +37,6 @@ próbom w³amania przez odciêcie w³amywaczom dostêpu do serwera.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 echo 'VERSION="%{version}"' > version.py
@@ -45,23 +44,48 @@ python setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.d}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.d,/etc/rc.d/init.d,%{_sbindir},/var/lib/%{name}}
 
 python setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
-sed -i 's@CONFIG_FILE = \"denyhosts.cfg\"@CONFIG_FILE = \"/etc/DenyHosts.cfg\"@' $RPM_BUILD_ROOT%{_bindir}/denyhosts.py
-
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+mv $RPM_BUILD_ROOT%{_datadir}/denyhosts/daemon-control-dist $RPM_BUILD_ROOT%{_sbindir}/%{name}ctl
+rm $RPM_BUILD_ROOT%{py_sitescriptdir}/%{name}/*.py
+rm -r $RPM_BUILD_ROOT%{_datadir}/denyhosts
+echo "127.0.0.1" > $RPM_BUILD_ROOT/var/lib/%{name}/allowed-hosts
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/chkconfig --add %{name}
+if [ -r /var/lock/subsys/DenyHosts ]; then
+        /etc/rc.d/init.d/DenyHosts restart >&2
+else
+        echo "Run \"/etc/rc.d/init.d/DenyHosts start\" to start DenyHosts."
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+        if [ -r /var/lock/subsys/DenyHosts ]; then
+                /etc/rc.d/init.d/DenyHosts stop >&2
+        fi
+        /sbin/chkconfig --del %{name}
+fi
+
 %files
 %defattr(644,root,root,755)
-%doc README.txt
+%doc README.txt CHANGELOG.txt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.cfg
 %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/%{name}
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) /etc/rc.d/init.d/%{name}
+%dir /var/lib/%{name}
+/var/lib/%{name}/allowed-hosts
+%dir %{py_sitescriptdir}/%{name}
+%{py_sitescriptdir}/%{name}/*.py[co]
