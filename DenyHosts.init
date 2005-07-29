@@ -1,0 +1,65 @@
+#!/bin/sh
+# DenyHosts - ssh brute force attack scanner
+# 
+# chkconfig:	345 85 05
+# description:	DenyHosts - ssh brute force attack scanner
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/DenyHosts ] && . /etc/sysconfig/DenyHosts
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down "DenyHosts"
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/DenyHosts ]; then
+		msg_starting "DenyHosts"
+                daemon /usr/sbin/DenyHostsctl start --config /etc/DenyHosts.cfg
+                touch /var/lock/subsys/DenyHosts
+	else
+		msg_already_running "DenyHosts"
+	fi
+	;;
+  stop)
+	# Check if the service is already running?
+	if [ -f /var/lock/subsys/DenyHosts ]; then
+		msg_stopping "DenyHosts"
+		busy
+                daemon /usr/sbin/DenyHostsctl stop
+		rm -f /var/lock/subsys/DenyHosts
+	else
+		msg_not_running "DenyHosts"
+	fi
+	;;
+  restart|force-reload)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  status)
+	status "DenyHosts"
+        /usr/sbin/DenyHostsctl status
+	exit $?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
