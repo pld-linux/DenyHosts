@@ -84,7 +84,7 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/%{name}
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) /etc/rc.d/init.d/%{name}
+%attr(754,root,root) /etc/rc.d/init.d/%{name}
 %dir /var/lib/%{name}
 /var/lib/%{name}/allowed-hosts
 %dir %{py_sitescriptdir}/%{name}
