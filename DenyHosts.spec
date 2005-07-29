@@ -11,8 +11,9 @@ Source1:	%{name}.cron
 Source2:	%{name}.cfg
 Source3:	%{name}.init
 URL:		http://denyhosts.sourceforge.net/
-BuildRequires:	python
 BuildRequires:	python-devel
+BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 Requires:	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -64,17 +65,17 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/chkconfig --add %{name}
 if [ -r /var/lock/subsys/DenyHosts ]; then
-        /etc/rc.d/init.d/DenyHosts restart >&2
+	/etc/rc.d/init.d/DenyHosts restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/DenyHosts start\" to start DenyHosts."
+	echo "Run \"/etc/rc.d/init.d/DenyHosts start\" to start DenyHosts."
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-        if [ -r /var/lock/subsys/DenyHosts ]; then
-                /etc/rc.d/init.d/DenyHosts stop >&2
-        fi
-        /sbin/chkconfig --del %{name}
+	if [ -r /var/lock/subsys/DenyHosts ]; then
+		/etc/rc.d/init.d/DenyHosts stop >&2
+	fi
+	/sbin/chkconfig --del %{name}
 fi
 
 %files
