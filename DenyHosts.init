@@ -1,6 +1,6 @@
 #!/bin/sh
 # DenyHosts - ssh brute force attack scanner
-# 
+#
 # chkconfig:	345 85 05
 # description:	DenyHosts - ssh brute force attack scanner
 
