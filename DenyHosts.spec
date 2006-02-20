@@ -82,7 +82,7 @@ fi
 %defattr(644,root,root,755)
 %doc README.txt CHANGELOG.txt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.cfg
-%config(noreplace) %verify(not md5 mtime size) /etc/cron.d/%{name}
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/cron.d/%{name}
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
