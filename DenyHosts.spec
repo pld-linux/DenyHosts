@@ -87,6 +87,6 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %dir /var/lib/%{name}
-/var/lib/%{name}/allowed-hosts
+%config(noreplace) %verify(not md5 mtime size) /var/lib/%{name}/allowed-hosts
 %dir %{py_sitescriptdir}/%{name}
 %{py_sitescriptdir}/%{name}/*.py[co]
