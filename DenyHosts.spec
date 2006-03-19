@@ -14,6 +14,7 @@ URL:		http://www.denyhosts.net/
 BuildRequires:	python-devel
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -64,17 +65,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add %{name}
-if [ -r /var/lock/subsys/DenyHosts ]; then
-	/etc/rc.d/init.d/DenyHosts restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/DenyHosts start\" to start DenyHosts."
-fi
+%service DenyHosts restart
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -r /var/lock/subsys/DenyHosts ]; then
-		/etc/rc.d/init.d/DenyHosts stop >&2
-	fi
+	%service DenyHosts stop
 	/sbin/chkconfig --del %{name}
 fi
 
