@@ -1,12 +1,12 @@
 Summary:	Script to help thwart SSH server attacks
 Summary(pl):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
-Version:	2.4
+Version:	2.5
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
-# Source0-md5:	2f58d764148c788eeea3fb487f8b0c05
+# Source0-md5:	b33f0cdae6448ae559c5f22dbffe59f2
 Source1:	%{name}.cron
 Source2:	%{name}.cfg
 Source3:	%{name}.init
