@@ -1,5 +1,5 @@
 Summary:	Script to help thwart SSH server attacks
-Summary(pl.UTF-8):   Skrypt do blokowania ataków na serwery SSH
+Summary(pl.UTF-8):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
 Version:	2.6
 Release:	1
