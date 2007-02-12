@@ -1,5 +1,5 @@
 Summary:	Script to help thwart SSH server attacks
-Summary(pl):	Skrypt do blokowania ataków na serwery SSH
+Summary(pl.UTF-8):   Skrypt do blokowania atakÃ³w na serwery SSH
 Name:		DenyHosts
 Version:	2.6
 Release:	1
@@ -31,13 +31,13 @@ of them were successful (but then again, how would you know?).
 Wouldn't it be better to automatically prevent that attacker from
 continuing to gain entry into your system?
 
-%description -l pl
-DenyHosts jest skryptem dla administratorów systemów Linux, którego
-zadaniem jest odparcie ataków na serwery SSH.
+%description -l pl.UTF-8
+DenyHosts jest skryptem dla administratorÃ³w systemÃ³w Linux, ktÃ³rego
+zadaniem jest odparcie atakÃ³w na serwery SSH.
 
-W logach SSH mo¿na znale¼æ wiele informacji o próbach uzyskania
-dostêpu do serwera poprzez us³ugê SSH. Dobrze jest zapobiec kolejnym
-próbom w³amania przez odciêcie w³amywaczom dostêpu do serwera.
+W logach SSH moÅ¼na znaleÅºÄ‡ wiele informacji o prÃ³bach uzyskania
+dostÄ™pu do serwera poprzez usÅ‚ugÄ™ SSH. Dobrze jest zapobiec kolejnym
+prÃ³bom wÅ‚amania przez odciÄ™cie wÅ‚amywaczom dostÄ™pu do serwera.
 
 %prep
 %setup -q
