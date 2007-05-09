@@ -11,7 +11,7 @@ Source1:	%{name}.cron
 Source2:	%{name}.cfg
 Source3:	%{name}.init
 URL:		http://www.denyhosts.net/
-BuildRequires:	python-devel >= 1:2.5
+BuildRequires:	python-devel >= 1:2.4
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -85,6 +85,5 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %dir /var/lib/%{name}
 %config(noreplace) %verify(not md5 mtime size) /var/lib/%{name}/allowed-hosts
-%{py_sitescriptdir}/DenyHosts-*.egg-info
 %dir %{py_sitescriptdir}/%{name}
 %{py_sitescriptdir}/%{name}/*.py[co]
