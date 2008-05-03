@@ -53,7 +53,7 @@ case "$1" in
 	exit $?
 	;;
   status)
-	status "DenyHosts"
+	#status "DenyHosts"
         /usr/sbin/DenyHostsctl status
 	exit $?
 	;;
