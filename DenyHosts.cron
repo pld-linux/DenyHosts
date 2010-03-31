@@ -4,4 +4,4 @@
 # removed)
 
 MAILTO=root
-*/10 * * * * root test -f /var/lock/subsys/denyhosts && exec python /usr/bin/denyhosts.py -c /etc/DenyHosts.cfg
+*/10 * * * * root test -f /var/lock/subsys/denyhosts || exec python /usr/bin/denyhosts.py -c /etc/DenyHosts.cfg
