@@ -1,1 +1,7 @@
-*/10 * * * * root python /usr/bin/denyhosts.py -c /etc/DenyHosts.cfg
+# NOTE:
+# if you run service in daemon mode, you should really rm this cron
+# definition, they do not cope! (this file will not be reinstalled by rpm once
+# removed)
+
+MAILTO=root
+*/10 * * * * root test -f /var/lock/subsys/denyhosts && exec python /usr/bin/denyhosts.py -c /etc/DenyHosts.cfg
