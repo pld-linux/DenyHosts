@@ -1,0 +1,20 @@
+--- DenyHosts-2.6/DenyHosts/denyfileutil.py~	2006-04-20 06:44:58.000000000 +0300
++++ DenyHosts-2.6/DenyHosts/denyfileutil.py	2010-04-01 09:18:00.449710314 +0300
+@@ -137,7 +137,7 @@
+         self.cutoff = long(time.time()) - cutoff
+         debug("relative cutoff: %ld (seconds)", cutoff)
+         debug("absolute cutoff: %ld (epoch)", self.cutoff)
+-        info("purging entries older than: %s",
++        debug("purging entries older than: %s",
+              time.asctime(time.localtime(self.cutoff)))
+         
+         self.backup()
+@@ -153,7 +153,7 @@
+         else:
+             self.remove_temp()
+             
+-        info("num entries purged: %d", num_purged)
++        debug("num entries purged: %d", num_purged)
+         plugin_purge = prefs.get('PLUGIN_PURGE')
+         if plugin_purge:
+             plugin.execute(plugin_purge, purged_hosts)

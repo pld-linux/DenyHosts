@@ -2,14 +2,15 @@ Summary:	Script to help thwart SSH server attacks
 Summary(pl.UTF-8):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
 Version:	2.6
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
 # Source0-md5:	fc2365305a9402886a2b0173d1beb7df
 Source1:	%{name}.cron
 Source2:	%{name}.cfg
 Source3:	%{name}.init
+Patch0:		silentpurge.patch
 URL:		http://www.denyhosts.net/
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-modules
@@ -42,24 +43,27 @@ próbom włamania przez odcięcie włamywaczom dostępu do serwera.
 
 %prep
 %setup -q
+%patch0 -p1
+
+grep -r '/usr/bin/env python' -l . | xargs %{__sed} -i -e 's,/usr/bin/env python,%{__python},'
 
 %build
 echo 'VERSION="%{version}"' > version.py
-python setup.py build
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.d,/etc/rc.d/init.d,%{_sbindir},/var/lib/%{name}}
-
-python setup.py install \
+%{__python} setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/%{name}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+%py_postclean
+
+cp -a %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/%{name}
+cp -a %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}
+install -p %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 mv $RPM_BUILD_ROOT%{_datadir}/denyhosts/daemon-control-dist $RPM_BUILD_ROOT%{_sbindir}/%{name}ctl
-rm $RPM_BUILD_ROOT%{py_sitescriptdir}/%{name}/*.py
 rm -r $RPM_BUILD_ROOT%{_datadir}/denyhosts
 echo "127.0.0.1" > $RPM_BUILD_ROOT/var/lib/%{name}/allowed-hosts
 
