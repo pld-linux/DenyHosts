@@ -2,7 +2,7 @@ Summary:	Script to help thwart SSH server attacks
 Summary(pl.UTF-8):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
 Version:	2.6
-Release:	6
+Release:	7
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://downloads.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
@@ -11,12 +11,13 @@ Source1:	%{name}.cron
 Source2:	%{name}.cfg
 Source3:	%{name}.init
 Patch0:		silentpurge.patch
-URL:		http://www.denyhosts.net/
+URL:		http://denyhosts.sourceforge.net/
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
+Requires:	libwrap
 Requires:	python
 Requires:	python-modules
 Requires:	rc-scripts
