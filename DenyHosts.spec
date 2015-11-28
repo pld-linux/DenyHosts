@@ -51,14 +51,12 @@ grep -r '/usr/bin/env python' -l . | xargs %{__sed} -i -e 's,/usr/bin/env python
 
 %build
 echo 'VERSION="%{version}"' > version.py
-%{__python} setup.py build
+%py_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.d,/etc/rc.d/init.d,%{_sbindir},/var/lib/%{name}}
-%{__python} setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
+%py_install
 
 %py_postclean
 
