@@ -15,7 +15,7 @@ URL:		http://denyhosts.sourceforge.net/
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.710
 Requires(post,preun):	/sbin/chkconfig
 Requires:	libwrap
 Requires:	python
