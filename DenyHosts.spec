@@ -45,7 +45,7 @@ próbom włamania przez odcięcie włamywaczom dostępu do serwera.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 grep -r '/usr/bin/env python' -l . | xargs %{__sed} -i -e 's,/usr/bin/env python,%{__python},'
 
