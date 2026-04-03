@@ -2,7 +2,7 @@ Summary:	Script to help thwart SSH server attacks
 Summary(pl.UTF-8):	Skrypt do blokowania ataków na serwery SSH
 Name:		DenyHosts
 Version:	2.6
-Release:	9
+Release:	10
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://downloads.sourceforge.net/denyhosts/%{name}-%{version}.tar.gz
@@ -23,6 +23,8 @@ Requires:	python-modules
 Requires:	rc-scripts
 Suggests:	crondaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_enable_debug_packages	0
 
 %description
 DenyHosts is a script intended to be run by Linux system
